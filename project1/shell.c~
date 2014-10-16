@@ -1,0 +1,18 @@
+int main(int argc, char **argv){
+	int i = 1;
+	char user[20] = "308>";
+	if(argc == 3){
+		if(strcmp(argv[1], "-p") == 0){
+			i = 0;
+			strcpy(user,argv[2]);
+			printf("%s\n",user);
+		}else{
+			printf("Invalid argument given only argument is -p USERNAME\n");
+		}
+	}else if (argc == 1) {
+		printf("%s\n",user);
+	}else{
+		printf("Invalid Number of arguments given only arguments are -p USERNAME\n");
+	}
+	return 0;
+}
