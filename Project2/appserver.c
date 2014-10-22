@@ -106,6 +106,7 @@ int main(int argc, char *argv[]){
                  tranCmd->next = NULL;
                  tranCmd->prev = NULL;
                  tranCmd->id = transID;
+                 gettimeofday(&(tranCmd->time),NULL);
                  strcpy(tranCmd->cmd,command);
                 
                 pthread_mutex_lock(&(cmdsList->lock));
