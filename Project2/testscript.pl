@@ -28,7 +28,6 @@ $seed ||= 0;		# Default to 0
 # are taking longer to process the transactions than the test script expects.
 # To fix this problem increase the testSleepTime variable value to sleep longer
 # between transactions and balance checking. 
-$testSleepTime = 240 / $thread; # Sleep time in seconds
 
 
 srand($seed + 5);		# Seed random num gen - Add 5... turns out seed of 0 not best test case
@@ -119,7 +118,7 @@ for my $line (1..300) {		# Perform 300 Transactions
 }
 
 print "\e[35mWaiting for transactions to complete...\e[m\n";
-$sleepTime = $testSleepTime;
+$sleepTime =  240 / $thread;;
 if($sleepTime < 10) { $sleepTime = 10; }
 sleep $sleepTime + 5;
 
