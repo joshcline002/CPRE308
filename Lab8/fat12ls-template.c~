@@ -270,8 +270,6 @@ void parseDirectory(int iDirOff, int iEntries, unsigned char buffer[])
 // Parses the attributes bits of a file
 char * parseAttributes(char string[], unsigned char key)
 {
-
-    
     // This is stub code!
     return string;
 } // end parseAttributes()
