@@ -26,6 +26,7 @@ void first_come_first_served(struct process *proc);
 void shortest_remaining_time(struct process *proc);
 void round_robin(struct process *proc);
 void round_robin_priority(struct process *proc);
+void sortProcess(struct process *proc);
 
 int main()
 {
@@ -76,8 +77,8 @@ int main()
 }
 
 void first_come_first_served(struct process *proc)
-{
-  /* Implement scheduling algorithm here */
+{ sortProcess(proc);
+  
 }
 
 void shortest_remaining_time(struct process *proc)
@@ -93,5 +94,23 @@ void round_robin(struct process *proc)
 void round_robin_priority(struct process *proc)
 {
   /* Implement scheduling algorithm here */
+}
+
+void sortProcess(struct process *proc){
+  
+  int i = 0;
+  int f = 0;
+  struct process * temp = malloc(sizeof(struct process));
+  
+  for (i =0; i < (NUM_PROCESSES -1); i++){
+    processesLeft = NUM_PROCESSES-i;
+    
+    for(f=0; f<processesLeft-1;f++){
+      
+      if (proc[f].arrivaltime > proc[d+1].arrivaltime{
+        memcpy(swap, )
+      }
+    }
+  }
 }
 
