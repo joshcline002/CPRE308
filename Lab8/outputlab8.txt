@@ -1,0 +1,8 @@
+Filename	Attrib	Time		Date		Size
+16SEC   .TXT  	A	00:02:10	1980/3/6	75
+1SEC    .TXT  	A	00:02:10	1980/3/6	75
+2SEC    .TXT  	A	00:02:10	1980/3/6	76
+4SEC    .TXT  	A	00:02:10	1980/3/6	75
+8SEC    .TXT  	A	00:02:10	1980/3/6	75
+BIG     .LOG  	A	00:03:00	1980/3/6	95
+(R)ead Only (H)idden (S)ystem (A)rchive

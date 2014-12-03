@@ -240,7 +240,7 @@ void decodeBootSector(struct BootSector * pBootS, unsigned char buffer[])
 // attributes and size of each directory entry to the console
 void parseDirectory(int iDirOff, int iEntries, unsigned char buffer[])
 {
-    int i = 0;
+    int i = 3;
     char string[13];
     
     // Display table header with labels
@@ -248,18 +248,18 @@ void parseDirectory(int iDirOff, int iEntries, unsigned char buffer[])
     
     // loop through directory entries to print information for each
     for(i = 0; i < (iEntries); i = i + 32)   {
-    	if ( (buffer[i] != 0x00) && (buffer[i] != 0xE5) ) {
+	if ( buffer[i] != 0x00 && buffer[i] != 0xE5){
     		// Display filename
     		printf("%s\t", toDOSName(string, buffer, i)  );
     		// Display Attributes
-    		printf("%s\t", parseAttributes(string, i+8)  );
+    		printf("%s\t", parseAttributes(string, buffer[i+11])  );
     		// Display Time
-    		printf("%s\t", parseTime(string, i+22 )  );
+    		printf("%s\t", parseTime(string, buffer[i+22] )  );
     		// Display Date
-    		printf("%s\t", parseDate(string, i+24 )  );
+    		printf("%s\t", parseDate(string, buffer[i+24] )  );
     		// Display Size
-    		printf("%d\n", 28 );
-    	}
+    		printf("%d\n", buffer[i + 28] );
+        }
     }
     
     // Display key
@@ -270,9 +270,30 @@ void parseDirectory(int iDirOff, int iEntries, unsigned char buffer[])
 // Parses the attributes bits of a file
 char * parseAttributes(char string[], unsigned char key)
 {
-
+    int i = 0;
     
-    // This is stub code!
+    if(key & 0b00000001){
+	string[i] = 'R';
+	i++;
+    }
+    
+    if(key & 0b00000010){
+	string[i] = 'H';
+	i++;
+    }
+    
+    if(key & 0b00000100){
+	string[i] = 'S';
+	i++;
+    }
+    
+    if(key & 0b000100000){
+	string[i] = 'A';
+	i++;
+    }
+    
+    string[i] = '\0';
+    
     return string;
 } // end parseAttributes()
 
@@ -282,7 +303,11 @@ char * parseTime(char string[], unsigned short usTime)
 {
     unsigned char hour = 0x00, min = 0x00, sec = 0x00;
     
-    // DEBUG: printf("time: %x", usTime);
+    hour = (usTime >> 11);
+    min = ((usTime >> 5) & 0b0000000000111111);
+    sec = (usTime & 0b0000000000011111)*2;
+    
+    //printf("time: %x", usTime);
     
     // This is stub code!
     
@@ -300,10 +325,14 @@ char * parseDate(char string[], unsigned short usDate)
     unsigned char month = 0x00, day = 0x00;
     unsigned short year = 0x0000;
     
-    //printf("date: %x", usDate);
+   //printf("date: %x", usDate);
+   
+    year = (usDate >> 9);
+    month = ((usDate >> 5) & 0b0000000000001111);
+    day = (usDate & 0b0000000000011111);
     
     // This is stub code!
-    
+    year = 0x7BC + year;
     sprintf(string, "%d/%d/%d", year, month, day);
     
     return string;
@@ -314,7 +343,19 @@ char * parseDate(char string[], unsigned short usDate)
 // Formats a filename string as DOS (adds the dot to 8-dot-3)
 char * toDOSName(char string[], unsigned char buffer[], int offset)
 {
-    // This is stub code!
+   
+   int i = 0;
+   for(i =0; i<8; i++){
+	string[i] = buffer[offset + i];
+   }
+   string[8] = '.';
+   for(i = 9; i<12; i++){
+	string[i] = buffer[offset + (i-1)];
+   }
+   
+    string[12] = ' ';
+    string[13] = ' ';
+   
     return string;
 } // end toDosNameRead-Only Bit
 
